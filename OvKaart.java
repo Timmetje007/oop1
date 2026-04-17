@@ -32,5 +32,9 @@ private boolean geldig;
 		saldo = saldo - prijs;
 		System.out.println(saldo);
 	}
+	public void opwaarderen(int bedragOpwaarderen) {
+		saldo = saldo + bedragOpwaarderen;
+		System.out.println(bedragOpwaarderen);
+	}
 
 }

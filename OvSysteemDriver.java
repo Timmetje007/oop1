@@ -6,8 +6,11 @@ public class OvSysteemDriver {
 		boolean OvSysteemAan = true;
 		String locatieInchecken;
 		boolean incheckTijdControlen = false;
+		int bedragOpwaarderen;
+		OpwaardeerAutomaat automaatNijmegen = new OpwaardeerAutomaat(0);
 		Scanner scan = new Scanner(System.in);
 		OvKaart mark = new OvKaart("Mark", 10, true);
+		BankPas bankPasMark = new BankPas("Mark", 100);
 		KaartLezer NijmegenCentraal = new KaartLezer("NijmegenCentraal", true);
 		KaartLezer NijmegenHeyendaal = new KaartLezer("NijmegenHeyendaal", true);
 		while(OvSysteemAan) {
@@ -22,7 +25,6 @@ public class OvSysteemDriver {
 			mark.ingecheckedOvKaart(true);
 			incheckTijdControlen = true;
 			}
-		 	System.out.println(incheckTijdControlen);
 		 	// uitchecken zelfde paal
 		 	if(locatieInchecken.equals("nijmegencentraal") && mark.geldigReturnOvKaart() && (mark.locatieReturnOvKaart() == "NijmegenCentraal") && mark.ingecheckedReturnOvKaart() && !incheckTijdControlen){
 			mark.locatieOvKaart("Uitgechecked");
@@ -40,11 +42,21 @@ public class OvSysteemDriver {
 			mark.locatieOvKaart("uitgechecked");
 			mark.ingecheckedOvKaart(false);
 			mark.betalen(2);
-			
 			}
+			if(locatieInchecken.equals("opwaarderen")) {
+				bedragOpwaarderen = scan.nextInt();
+				System.out.println(bedragOpwaarderen);
+				if(bedragOpwaarderen <= bankPasMark.saldoRekening()) {
+					bankPasMark.betalen(bedragOpwaarderen);
+					automaatNijmegen.bedragNaarAutomaat(bedragOpwaarderen);
+					mark.opwaarderen(automaatNijmegen.overZetten());
+					automaatNijmegen.bedragVanAutomaatAf();
+					
+				}
+			}
+			
 		 	
 		 	incheckTijdControlen = false;
-		 	System.out.println(incheckTijdControlen);
 		System.out.println(mark.locatieReturnOvKaart());
 		} 
 	}
