@@ -7,6 +7,7 @@ private int saldo;
 private boolean ingechecked;
 private boolean geldig;
 
+
 	OvKaart(String naam, int saldo, boolean geldig){
 		this.naam = naam;
 		this.saldo = saldo;
@@ -27,4 +28,9 @@ private boolean geldig;
 	public boolean geldigReturnOvKaart() {
 		return geldig;
 	}
+	public void betalen(int prijs) {
+		saldo = saldo - prijs;
+		System.out.println(saldo);
+	}
+
 }
